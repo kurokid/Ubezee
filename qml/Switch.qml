@@ -8,14 +8,13 @@ Rectangle {
     border.width: 2
     state: "off"
     property bool switchEnabled: true
-    property bool toggleSwitch: false
     signal clicked()
 
     Rectangle {
         id: switchColor
         anchors.margins: 4
         anchors.fill: parent
-        color: switchControl.toggleSwitch ? "#248b00" : "#cccccc"
+        color: switchControl.state == "on" ? "#248b00" : "#cccccc"
     }
 
     MouseArea {
@@ -24,7 +23,7 @@ Rectangle {
         hoverEnabled: true
         enabled: switchControl.switchEnabled
         onClicked: {
-            switchControl.state = switchControl.toggleSwitch ? "off" : "on"
+            switchControl.state = switchControl.state == "on" ? "off" : "on"
         }
     }
         
@@ -40,12 +39,10 @@ Rectangle {
         State {
             name: "on"
             PropertyChanges { target: switchButton; x: 60 }
-            PropertyChanges { target: switchControl; toggleSwitch: true }
         },
         State {
             name: "off"
             PropertyChanges { target: switchButton; x: 1 }
-            PropertyChanges { target: switchControl; toggleSwitch: false }
         }
     ]
 

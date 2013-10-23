@@ -84,7 +84,7 @@ Rectangle {
             name: "general"
 
             PropertyChanges {
-                target: usersPage
+                target: generalPage
                 opacity: 1
                 x: 0
             }
@@ -92,12 +92,12 @@ Rectangle {
         State {
             name: "users"
             PropertyChanges {
-                target: usersPage
+                target: generalPage
                 opacity: 0
                 x: -360
             }
             PropertyChanges {
-                target: generalPage
+                target: usersPage
                 opacity: 1
                 x: 0
             }
