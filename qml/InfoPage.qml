@@ -22,12 +22,6 @@ Rectangle {
     id: infoPage
     color: "#00000000"
 
-    signal back()
-
-    MouseArea {
-        anchors.fill: parent
-    }
-
     Item {
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
@@ -75,7 +69,9 @@ Rectangle {
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: infoPage.back();
+                onClicked: {
+                	setError(false)
+                }
             }
         }
 
@@ -101,18 +97,6 @@ Rectangle {
             contentHeight: edit.paintedHeight
             clip: true
 
-            function ensureVisible(r)
-            {
-                if (contentX >= r.x)
-                    contentX = r.x;
-                else if (contentX+width <= r.x+r.width)
-                    contentX = r.x+r.width-width;
-                if (contentY >= r.y)
-                    contentY = r.y;
-                else if (contentY+height <= r.y+r.height)
-                    contentY = r.y+r.height-height;
-            }
-
             SText {
                 id: edit
                 width: flick.width - 10
@@ -120,7 +104,6 @@ Rectangle {
                 text: "Please provide your Ubezee password. If you forget your password, you can try change it by boot to safe mode."
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 13
-                //onCursorRectangleChanged: flick.ensureVisible(cursorRectangle)
             }
         }
     }

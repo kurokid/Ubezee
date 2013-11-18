@@ -24,11 +24,6 @@ Rectangle {
 
     signal back()
 
-    function refreshColor() {
-
-        picker.setColor("#248b00");
-    }
-
     MouseArea {
         anchors.fill: parent
     }
@@ -55,7 +50,7 @@ Rectangle {
         anchors.topMargin: 5
         font.pixelSize: 64
         text: "Settings"
-        color: "#4cb328"
+	color: "#4cb328"
     }
 
     SText {
@@ -65,7 +60,7 @@ Rectangle {
         anchors.leftMargin: 17
         anchors.topMargin: 70
         font.pixelSize: 16
-        text: "Save received file in:"
+        text: "Password:"
         color: "#888888"
     }
 
@@ -95,7 +90,7 @@ Rectangle {
             verticalAlignment: "AlignVCenter"
             elide: "ElideMiddle"
             font.pixelSize: 12
-            //text: guiBehind.currentPath
+            text: "path"
         }
     }
 
@@ -105,8 +100,7 @@ Rectangle {
         anchors.rightMargin: 17
         anchors.top: textPath.bottom
         anchors.topMargin: 10
-        label: "Change folder"
-        //onClicked: guiBehind.changeDestinationFolder()
+        label: "Change password"
     }
 
     SText {
@@ -119,24 +113,12 @@ Rectangle {
         color: "#888888"
     }
 
-    ColorPicker {
-        id: picker
-        anchors.top: labelColor.bottom
-        anchors.topMargin: 8
-        anchors.left: labelColor.left
-        /*onChanged: {
-            guiBehind.changeThemeColor(colorValue);
-        }*/
-    }
-
     ColorBox {
         id: cbox1
         anchors.top: labelColor.bottom
         anchors.topMargin: 8
-        anchors.left: picker.right
-        anchors.leftMargin: 20
+        anchors.left: labelColor.left
         color: "#248B00"
-        onClicked: picker.setColor(color)
     }
 
     ColorBox {
@@ -145,7 +127,6 @@ Rectangle {
         anchors.left: cbox1.right
         anchors.leftMargin: 15
         color: "#A80000"
-        onClicked: picker.setColor(color)
     }
 
     ColorBox {
@@ -154,60 +135,94 @@ Rectangle {
         anchors.left: cbox2.right
         anchors.leftMargin: 15
         color: "#3A6CBC"
-        onClicked: picker.setColor(color)
     }
 
     ColorBox {
         id: cbox4
-        anchors.top: cbox1.bottom
-        anchors.topMargin: 15
-        anchors.left: cbox1.left
+        anchors.top: cbox1.top
+        anchors.left: cbox3.right
+        anchors.leftMargin: 15
         color: "#2e3436" // "#704214"
-        onClicked: picker.setColor(color)
     }
 
     ColorBox {
         id: cbox5
         anchors.left: cbox4.right
-        anchors.top: cbox4.top
+        anchors.top: cbox1.top
         anchors.leftMargin: 15
         color: "#B77994"
-        onClicked: picker.setColor(color)
     }
 
     ColorBox {
         id: cbox6
-        anchors.top: cbox4.top
+        anchors.top: cbox1.top
         anchors.left: cbox5.right
         anchors.leftMargin: 15
         color: "#5B2F42"
-        onClicked: picker.setColor(color)
     }
 
     ColorBox {
         id: cbox7
-        anchors.top: cbox4.bottom
-        anchors.topMargin: 15
-        anchors.left: cbox4.left
+        anchors.top: cbox1.top
+        anchors.left: cbox6.right
+        anchors.leftMargin: 15
         color: "#353B56"
-        onClicked: picker.setColor(color)
     }
-
+/*
     ColorBox {
         id: cbox8
-        anchors.top: cbox7.top
-        anchors.left: cbox7.right
-        anchors.leftMargin: 15
-        color: "#FB8504"
-        onClicked: picker.setColor(color)
+        anchors.top: cbox1.bottom
+        anchors.topMargin: 8
+        anchors.left: labelColor.left
+        color: "#248B00"
     }
 
     ColorBox {
         id: cbox9
-        anchors.top: cbox7.top
+        anchors.top: cbox8.top
         anchors.left: cbox8.right
         anchors.leftMargin: 15
-        color: "#6D0D71"
-        onClicked: picker.setColor(color)
+        color: "#A80000"
     }
+
+    ColorBox {
+        id: cbox10
+        anchors.top: cbox8.top
+        anchors.left: cbox9.right
+        anchors.leftMargin: 15
+        color: "#3A6CBC"
+    }
+
+    ColorBox {
+        id: cbox11
+        anchors.top: cbox8.top
+        anchors.left: cbox10.right
+        anchors.leftMargin: 15
+        color: "#704214"
+    }
+
+    ColorBox {
+        id: cbox12
+        anchors.top: cbox8.top
+        anchors.left: cbox11.right
+        anchors.leftMargin: 15
+        color: "#B77994"
+    }
+
+    ColorBox {
+        id: cbox13
+        anchors.top: cbox8.top
+        anchors.left: cbox12.right
+        anchors.leftMargin: 15
+        color: "#5B2F42"
+    }
+
+    ColorBox {
+        id: cbox14
+        anchors.top: cbox8.top
+        anchors.left: cbox13.right
+        anchors.leftMargin: 15
+        color: "#2e3436"
+    }
+    */
 }

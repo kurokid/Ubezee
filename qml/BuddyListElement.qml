@@ -35,9 +35,7 @@ Flipable {
        id: buddyMouseArea
        anchors.fill: parent
        hoverEnabled: true
-       /*onClicked: {
-
-       }*/
+       //onClicked: console.log(userListData)
    }
 
    Rectangle {

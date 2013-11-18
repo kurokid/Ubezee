@@ -31,7 +31,7 @@ Item {
             anchors.fill: parent
         }
         Image {
-            source: "images/DuktoMetroIcon.png"
+            source: "images/ubezee-small.png"
             anchors.fill: parent
         }
     }
@@ -40,22 +40,14 @@ Item {
         y: 80
         x: 22
         font.pixelSize: 100
-        text: "Ubezee R1"
+        text: "Ubezee Beta"
         color: "#555555"
     }
     SmoothText {
         x: 25
         y: 70 + 75
         font.pixelSize: 38
-        text: "Dibuat Oleh Ikhwan Setiawan"
-        color: "#888888"
-    }
-    SmoothText {
-        x: 25
-        y: 100 + 75
-        font.pixelSize: 32
-        text: "Website: <a href=\"http://www.msec.it/dukto/\">http://www.msec.it/dukto/</a>"
-        onLinkActivated: Qt.openUrlExternally(link)
+        text: "Created by Ikhwan Setiawan"
         color: "#888888"
     }
 
@@ -64,11 +56,11 @@ Item {
         anchors.rightMargin: 40
         anchors.left: parent.left
         anchors.leftMargin: 25
-        y: 240
+        y: 180
         font.pixelSize: 12
         color: "#888888"
         wrapMode: "WordWrap"
-        text: "This application and it's source code are released freely as open source project.<br>If you like this application please consider <a href=\"http://www.msec.it/\">making a donation</a>."
+        text: "This application and it's source code are released freely as open source project."
         onLinkActivated: Qt.openUrlExternally(link)
     }
 }

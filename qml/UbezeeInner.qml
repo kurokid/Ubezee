@@ -24,6 +24,7 @@ Rectangle {
 
     signal showIpList()
     signal showSettings()
+    signal addNewUser()
 
     function gotoPage(page) {
         tabBar.state = page;

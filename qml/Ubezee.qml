@@ -20,21 +20,17 @@ import QtQuick 1.1
 
 Rectangle {
 
-    signal passRequired(string Password);
-
-    function loginPass(statusLogin){
-        loginPage.loginPass(statusLogin)
-    }
-
-    function checkDataItem() {
-        BuddiesPage.checkItem()
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+        hoverEnabled: true
     }
 
     id: mainElement
     width: 360
     height: 500
 
-    state: "loginpage"
+    state: hasLogin ? "ubezeemain" : "loginpage"
 
     FontLoader {
         id: ubezeefont
@@ -58,9 +54,9 @@ Rectangle {
         width: parent.width
         x: 200
         opacity: 0
-        onLoginClicked: passRequired(password)
-        onShowError: ubezeeOverlay.state = "info"
-        onShowMainWidget: parent.state = "ubezeemain"
+        //onLoginClicked: passRequired(password)
+        //hasErrorChanged: ubezeeOverlay.state = "info"
+        //onShowMainWidget: parent.state = "ubezeemain"
     }
 
     UbezeeMain {

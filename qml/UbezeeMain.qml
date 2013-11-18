@@ -10,16 +10,15 @@ Rectangle {
         anchors.fill: parent
         onShowIpList: ubezeeOverlay.state = "ip"
         onShowSettings: {
-            ubezeeOverlay.refreshSettingsColor();
             ubezeeOverlay.state = "settings";
         }
     }
 
-    UpdatesBox {
+    /*UpdatesBox {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 100
-    }
+    }*/
 
     UbezeeOverlay {
         id: ubezeeOverlay

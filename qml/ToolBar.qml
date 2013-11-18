@@ -50,48 +50,23 @@ Item {
         }
 
         Image {
-            id: openFolderIcon
+            id: unlockIcon
             anchors.top: parent.top
             anchors.topMargin: 5
-            anchors.right: showIpIcon.left
+            anchors.right: configIcon.left
             anchors.rightMargin: 40
-            source: "images/OpenFolderIcon.png"
+            source: "images/UnlockIcon.png"
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: guiBehind.openDestinationFolder();
+                //onClicked: guiBehind.openDestinationFolder();
             }
         }
         SText {
-            anchors.top: openFolderIcon.bottom
+            anchors.top: unlockIcon.bottom
             anchors.topMargin: 3
-            anchors.horizontalCenter: openFolderIcon.horizontalCenter
-            text: "Received"
-            font.pixelSize: 12
-            horizontalAlignment: Text.AlignHCenter
-            width: 1
-        }
-
-        Image {
-            id: showIpIcon
-            anchors.top: parent.top
-            anchors.topMargin: 5
-            anchors.horizontalCenter: parent.horizontalCenter
-            source: "images/ShowIpIcon.png"
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    //guiBehind.refreshIpList();
-                    toolBar.clicked("ip");
-                }
-            }
-        }
-        SText {
-            anchors.top: showIpIcon.bottom
-            anchors.topMargin: 3
-            anchors.horizontalCenter: showIpIcon.horizontalCenter
-            text: "Addresses"
+            anchors.horizontalCenter: unlockIcon.horizontalCenter
+            text: "Temp. Unlock"
             font.pixelSize: 12
             horizontalAlignment: Text.AlignHCenter
             width: 1
@@ -101,8 +76,7 @@ Item {
             id: configIcon
             anchors.top: parent.top
             anchors.topMargin: 5
-            anchors.left: showIpIcon.right
-            anchors.leftMargin: 40
+            anchors.horizontalCenter: parent.horizontalCenter
             source: "images/ConfigIcon.png"
 
             MouseArea {
@@ -115,6 +89,29 @@ Item {
             anchors.topMargin: 3
             anchors.horizontalCenter: configIcon.horizontalCenter
             text: "Settings"
+            font.pixelSize: 12
+            horizontalAlignment: Text.AlignHCenter
+            width: 1
+        }
+
+        Image {
+            id: closeIcon
+            anchors.top: parent.top
+            anchors.topMargin: 5
+            anchors.left: configIcon.right
+            anchors.leftMargin: 40
+            source: "images/CloseIcon.png"
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: Qt.quit()
+            }
+        }
+        SText {
+            anchors.top: closeIcon.bottom
+            anchors.topMargin: 3
+            anchors.horizontalCenter: closeIcon.horizontalCenter
+            text: "Exit"
             font.pixelSize: 12
             horizontalAlignment: Text.AlignHCenter
             width: 1

@@ -20,45 +20,29 @@ import QtQuick 1.0
 
 Item {
 
+    MouseArea {
+        id: buddyMouseArea
+        anchors.fill: parent
+        hoverEnabled: true
+        onClicked: console.log(userListData)
+    }
+
     Timer {
         interval: 6000; running: true; repeat: true
         onTriggered: flipImage()
     }
 
-    function flipImage() {
-        for(var idx = 0; idx < buddiesListData.count; ++idx) {
-            if ( Math.ceil(Math.random() * (buddiesListData.count+1)) == (idx+1)) {
-                    buddiesListData.setProperty((idx),"showback",false)
-                    buddiesListData.setProperty(idx,"showback",true)
+    function flipImage  () {
+	console.log(userListData.count)
+        for(var idx = 0; idx < userListData.count; ++idx) {
+            if ( Math.ceil(Math.random() * (userListData.count+1)) == (idx+1)) {
+                    userListData.setProperty(idx,"showback",false)
+                    userListData.setProperty(idx,"showback",true)
             }
         }
     }
 
     clip: true
-
-    ListModel {
-        id: buddiesListData
-
-        ListElement {
-            ip: ""
-            avatar: "images/PcLogo.png"
-            generic: ""
-            username: "kuro_kid"
-            system: "kurokid-eeepc"
-            oslogo: "images/AndroidLogo.png"
-            showback: true
-        }
-
-        ListElement {
-            ip: ""
-            avatar: "images/AppleLogo.png"
-            generic: ""
-            username: "kuro_kid"
-            system: "kurokid-eeepc"
-            oslogo: "images/AndroidLogo.png"
-            showback: true
-        }
-    }
 
     ListView {
         id: buddiesList
@@ -66,22 +50,21 @@ Item {
         spacing: 10
         anchors.leftMargin: 25
         anchors.rightMargin: 0
-        model: buddiesListData // EsempioDati {}
+        model: userListData
 
         Component {
              id: contactDelegate
              BuddyListElement {
-                 buddyIp: ip
-                 buddyAvatar: avatar
+                 buddyIp: username
+                 buddyAvatar: userPicture
                  //buddyGeneric: generic
-                 buddyUsername: username
-                 buddySystem: system
-                 buddyOsLogo: oslogo
-                 buddyShowBack: showback
+                 buddyUsername: realname
+                 buddySystem: address
+                 buddyOsLogo: userPicture
+                 buddyShowBack: true
              }
          }
 
         delegate: contactDelegate
-        //delegate: buddiesListdata
     }
 }

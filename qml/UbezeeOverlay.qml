@@ -22,11 +22,6 @@ Rectangle {
     color: "#00000000"
     state: ""
 
-    function refreshSettingsColor() {
-
-        settingsPage.refreshColor();
-    }
-
     Rectangle {
         id: disabler
         anchors.fill: parent
@@ -58,7 +53,6 @@ Rectangle {
         width: parent.width
         x: -50
         opacity: 0
-        onBack: parent.state = ""
     }
 
     ProgressPage {
