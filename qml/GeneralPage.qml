@@ -56,6 +56,7 @@ Item {
 
     Switch {
         id: mainSwitch
+        switchOn: isLock
         anchors.right: parent.right
         anchors.rightMargin: 40
         anchors.top: keterangan.bottom

@@ -6,8 +6,9 @@ Rectangle {
     height: 30
     border.color: switchEnabled ? "#cccccc" : "red"
     border.width: 2
-    state: "off"
     property bool switchEnabled: true
+    property bool switchOn: false
+    state: switchOn ? "on" : "off"
     signal clicked()
 
     Rectangle {
@@ -23,6 +24,7 @@ Rectangle {
         hoverEnabled: true
         enabled: switchControl.switchEnabled
         onClicked: {
+	    console.log(isLock)
             switchControl.state = switchControl.state == "on" ? "off" : "on"
         }
     }
