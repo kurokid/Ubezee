@@ -147,7 +147,7 @@ class MyElement (QObject):
 			self.setLogin(True)
 			self.setOverlay("")
 		else:
-			self.setError(True, "Login Failed", "Your password is incorrect, please try again.")
+			self.setError(True, "gagal masuk", "kata kunci yang anda masukkan salah, silakan coba lagi.")
 			
 	def addNewUser(self):
 		self.getUsers()

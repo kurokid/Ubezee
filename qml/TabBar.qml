@@ -34,9 +34,9 @@ Item {
 
         SmoothText {
             id: userText
-            x: 182
+            x: 160
             font.pixelSize: 84
-            text: "users"
+            text: "pengguna"
             transformOrigin: Item.TopLeft
             color: userTextMouseArea.containsMouse ? "#4cb328" : "#cccccc"
             scale: 0.5
@@ -54,10 +54,10 @@ Item {
 
         SmoothText {
             id: aboutText
-            x: 320
+            x: 360
             font.pixelSize: 84
             color: aboutTextMouseArea.containsMouse ? "#4cb328" : "#cccccc"
-            text: "about"
+            text: "tentang"
             MouseArea {
                 id: aboutTextMouseArea
                 anchors.fill: parent
@@ -88,13 +88,13 @@ Item {
 
             PropertyChanges {
                 target: userText
-                x: 117
+                x: 97
                 color: "#248b00" // "#000000"
             }
 
             PropertyChanges {
                 target: aboutText
-                x: 255
+                x: 295
             }
         },
         State {
@@ -102,17 +102,17 @@ Item {
 
             PropertyChanges {
                 target: generalText
-                x: -120
+                x: -130
             }
 
             PropertyChanges {
                 target: userText
-                x: 52
+                x: 22
             }
 
             PropertyChanges {
                 target: aboutText
-                x: 190
+                x: 220
                 color: "#248b00" // "#000000"
             }
         }

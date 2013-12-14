@@ -11,7 +11,7 @@ Rectangle {
         anchors.leftMargin: 15
         anchors.topMargin: 5
         font.pixelSize: 64
-        text: "Authentication"
+        text: "otorisasi"
         color: "#4cb328"
     }
 
@@ -69,7 +69,7 @@ Rectangle {
 		    anchors.bottomMargin: 20
 		    font.pixelSize: 16
 		    wrapMode: TextEdit.Wrap
-		    text: "<b>Please input password to show the configuration menu!</b>"
+		    text: "<b>harap masukkan kata kunci untuk melanjutkan ke menu konfigurasi.</b>"
 		    color: "#888888"
 		}
 	
@@ -80,7 +80,7 @@ Rectangle {
 		    anchors.bottom: imageRec.bottom
 		    anchors.leftMargin: 10
 		    anchors.rightMargin: 20
-		    placeHolder: 'Enter your password...'
+		    placeHolder: 'masukkan kata kunci...'
         	charTampil: false
 		}
     }
@@ -98,7 +98,7 @@ Rectangle {
         anchors.rightMargin: 10
         anchors.bottomMargin: 10
         buttonEnabled: true
-        label: "Accept"
+        label: "ok"
         onClicked: {
             check_pass(txtPass.isi);
         }
@@ -111,7 +111,7 @@ Rectangle {
         anchors.leftMargin: 10
         anchors.bottomMargin: 10
         buttonEnabled: true
-        label: "Exit"
+        label: "keluar"
         onClicked: Qt.quit();
     }
 }

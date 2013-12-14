@@ -48,7 +48,7 @@ Item {
             anchors.top: unlockIcon.bottom
             anchors.topMargin: 3
             anchors.horizontalCenter: unlockIcon.horizontalCenter
-            text: "Temp. Unlock"
+            text: "buka sementara"
             font.pixelSize: 12
             horizontalAlignment: Text.AlignHCenter
             width: 1
@@ -70,7 +70,7 @@ Item {
             anchors.top: configIcon.bottom
             anchors.topMargin: 3
             anchors.horizontalCenter: configIcon.horizontalCenter
-            text: "Settings"
+            text: "konfigurasi"
             font.pixelSize: 12
             horizontalAlignment: Text.AlignHCenter
             width: 1
@@ -93,7 +93,7 @@ Item {
             anchors.top: closeIcon.bottom
             anchors.topMargin: 3
             anchors.horizontalCenter: closeIcon.horizontalCenter
-            text: "Exit"
+            text: "keluar"
             font.pixelSize: 12
             horizontalAlignment: Text.AlignHCenter
             width: 1

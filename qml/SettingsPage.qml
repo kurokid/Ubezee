@@ -32,7 +32,7 @@ Rectangle {
         anchors.leftMargin: 15
         anchors.topMargin: 5
         font.pixelSize: 64
-        text: "Settings"
+        text: "konfigurasi"
 		color: "#4cb328"
     }
 
@@ -43,7 +43,7 @@ Rectangle {
         anchors.leftMargin: 17
         anchors.topMargin: 70
         font.pixelSize: 16
-        text: "Password:"
+        text: "kata kunci:"
         color: "#888888"
     }
 
@@ -55,7 +55,7 @@ Rectangle {
         anchors.leftMargin: 17
         anchors.rightMargin: 17
         anchors.topMargin: 5
-        placeHolder: "Enter your new password..."
+        placeHolder: "masukkan kata kunci baru..."
         charTampil: false
 	}
 	
@@ -66,7 +66,7 @@ Rectangle {
         anchors.leftMargin: 17
         anchors.topMargin: 10
         font.pixelSize: 16
-        text: "Confirm your new password:"
+        text: "konfirmasi kata kunci baru:"
         color: "#888888"
     }
 
@@ -78,7 +78,7 @@ Rectangle {
         anchors.leftMargin: 17
         anchors.rightMargin: 17
         anchors.topMargin: 5
-        placeHolder: "Retype your new password..."
+        placeHolder: "tulis ulang kata kunci anda..."
         charTampil: false
 	}
 	
@@ -89,7 +89,7 @@ Rectangle {
         anchors.leftMargin: 17
         anchors.topMargin: 10
         font.pixelSize: 16
-        text: "Confirm your new password:"
+        text: "petunjuk kata kunci:"
         color: "#888888"
     }
 
@@ -101,7 +101,7 @@ Rectangle {
         anchors.leftMargin: 17
         anchors.rightMargin: 17
         anchors.topMargin: 5
-        placeHolder: "Enter your new password hint..."
+        placeHolder: "masukkan petunjuk kata kunci anda..."
 	}
 
     ButtonDark {
@@ -110,22 +110,22 @@ Rectangle {
         anchors.rightMargin: 17
         anchors.top: boxHint.bottom
         anchors.topMargin: 10
-        label: "Change password"
+        label: "ubah kata kunci"
         onClicked: {
         	if (boxNewPass.isi != '' && boxRePass.isi != ''){
 	        	if (boxNewPass.isi == boxRePass.isi){
 	        		if(boxHint.isi != ''){
 	        			doRegister(boxHint.isi, boxNewPass.isi)
-	        			setError(true, "Register Success", "Your new password has been successfully changed.")
+	        			setError(true, "konfigurasi berhasil", "kata kunci anda telah berhasi dirubah.")
 	        		}else{
-	        			setError(true, "Register Failed", "Please, make sure your input password is match!")
+	        			setError(true, "konfigurasi gagal!", "tolong pastikan semua kolom sudah terisi.");
 	        		}
 	        	}else{
-	        		setError(true, "Register Failed", "Please, make sure your input password is match!")
+	        		setError(true, "konfigurasi gagal", "tolong pastikan kata kunci yang anda masukkan cocok")
 	        	}
 			}else{
 				//setOverlay("")
-	       		setError(true, "Register Failed", "Please, make sure your input password is match!");
+	       		setError(true, "konfigurasi gagal!", "tolong pastikan semua kolom sudah terisi.");
 	       	}
         } 
     }
@@ -136,7 +136,7 @@ Rectangle {
         anchors.top: buttonPath.bottom
         anchors.topMargin: 40
         font.pixelSize: 16
-        text: "Theme color:"
+        text: "Warna Tema:"
         color: "#888888"
     }
 

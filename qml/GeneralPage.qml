@@ -22,7 +22,7 @@ Item {
         anchors.topMargin: 20
         font.pixelSize: 20
         wrapMode: "WordWrap"
-        text: "if you lock your system, you will not be able to make any change in your system."
+        text: "jika sistem anda dikunci, anda tidak akan bisa membuat perubahan apapun di dalam sistem."
         color: "#555555"
     }
 
@@ -32,7 +32,7 @@ Item {
         anchors.top: keterangan.bottom
         anchors.topMargin: 45
         font.pixelSize: 40
-        text: "lock"
+        text: "kunci"
         color: "#555555"
     }
 

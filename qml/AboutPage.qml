@@ -30,7 +30,7 @@ Item {
         x: 25
         y: 70 + 75
         font.pixelSize: 38
-        text: "Created by Ikhwan Setiawan"
+        text: "Dibuat oleh Ikhwan Setiawan"
         color: "#888888"
     }
 
@@ -43,7 +43,7 @@ Item {
         font.pixelSize: 12
         color: "#888888"
         wrapMode: "WordWrap"
-        text: "This application and it's source code are released freely as open source project."
+        text: "Aplikasi ini dan kode sumbernya dirilis sepenuhnya sebagai projek open source.<br><br><br>kode sumber: http://github.com/kurokid/Ubezee.git<br>email: ikhwansetiawan@cek.pm"
         onLinkActivated: Qt.openUrlExternally(link)
     }
 }
