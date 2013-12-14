@@ -35,7 +35,3 @@ class MyUser():
 				self.picture = props['IconFile']
 		except IOError:
 			self.picture = "images/UserIcon.png"
-	
-if __name__ == '__main__':
-	kurokid = MyUser('root')
-	print kurokid.getPicture()

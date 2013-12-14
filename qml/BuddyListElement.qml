@@ -1,21 +1,3 @@
-/* DUKTO - A simple, fast and multi-platform file transfer tool for LAN users
- * Copyright (C) 2011 Emanuele Colombo
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- */
-
 import QtQuick 1.0
 
 Flipable {
@@ -30,12 +12,13 @@ Flipable {
    property alias buddyUsername: buddyUsernameText.text
    property alias buddySystem: buddySystemText.text
    property bool buddyShowBack: false
+   property bool lockThis: false
 
    MouseArea {
        id: buddyMouseArea
        anchors.fill: parent
        hoverEnabled: true
-       //onClicked: console.log(userListData)
+       //onClicked:
    }
 
    Rectangle {
@@ -140,6 +123,15 @@ Flipable {
            font.pixelSize: 14
            elide: "ElideRight"
            color: "#555555"
+       }
+       
+       Switch {
+           id: userSwitch
+           switchOn: false 
+           anchors.top: flipableAvatar.top
+           anchors.topMargin: 8
+           anchors.rightMargin: 10
+           anchors.right: parent.right
        }
    }
 

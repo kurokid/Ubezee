@@ -1,21 +1,3 @@
-/* DUKTO - A simple, fast and multi-platform file transfer tool for LAN users
- * Copyright (C) 2011 Emanuele Colombo
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- */
-
 import QtQuick 1.0
 
 Rectangle {
@@ -23,7 +5,8 @@ Rectangle {
     color: "#ffffff"
 
     signal back()
-
+	signal confirm()
+	
     MouseArea {
         anchors.fill: parent
     }
@@ -50,7 +33,7 @@ Rectangle {
         anchors.topMargin: 5
         font.pixelSize: 64
         text: "Settings"
-	color: "#4cb328"
+		color: "#4cb328"
     }
 
     SText {
@@ -64,43 +47,87 @@ Rectangle {
         color: "#888888"
     }
 
-    Rectangle {
-        id: textPath
+    TextBox {
+        id: boxNewPass
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: labelPath.bottom
         anchors.leftMargin: 17
         anchors.rightMargin: 17
-        anchors.topMargin: 8
-        height: 30
-        color: "#248b00"
-        clip: true
-
-        Image {
-            anchors.top: parent.top
-            anchors.left: parent.left
-            source: "images/PanelGradient.png"
-        }
-
-        SText {
-            anchors.leftMargin: 5
-            anchors.rightMargin: 5
-            anchors.fill: parent
-            horizontalAlignment: "AlignLeft"
-            verticalAlignment: "AlignVCenter"
-            elide: "ElideMiddle"
-            font.pixelSize: 12
-            text: "path"
-        }
+        anchors.topMargin: 5
+        placeHolder: "Enter your new password..."
+        charTampil: false
+	}
+	
+	SText {
+        id: labelRePass
+        anchors.left: parent.left
+        anchors.top: boxNewPass.bottom
+        anchors.leftMargin: 17
+        anchors.topMargin: 10
+        font.pixelSize: 16
+        text: "Confirm your new password:"
+        color: "#888888"
     }
+
+    TextBox {
+        id: boxRePass
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: labelRePass.bottom
+        anchors.leftMargin: 17
+        anchors.rightMargin: 17
+        anchors.topMargin: 5
+        placeHolder: "Retype your new password..."
+        charTampil: false
+	}
+	
+	SText {
+        id: labelHint
+        anchors.left: parent.left
+        anchors.top: boxRePass.bottom
+        anchors.leftMargin: 17
+        anchors.topMargin: 10
+        font.pixelSize: 16
+        text: "Confirm your new password:"
+        color: "#888888"
+    }
+
+    TextBox {
+        id: boxHint
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: labelHint.bottom
+        anchors.leftMargin: 17
+        anchors.rightMargin: 17
+        anchors.topMargin: 5
+        placeHolder: "Enter your new password hint..."
+	}
 
     ButtonDark {
         id: buttonPath
         anchors.right: parent.right
         anchors.rightMargin: 17
-        anchors.top: textPath.bottom
+        anchors.top: boxHint.bottom
         anchors.topMargin: 10
         label: "Change password"
+        onClicked: {
+        	if (boxNewPass.isi != '' && boxRePass.isi != ''){
+	        	if (boxNewPass.isi == boxRePass.isi){
+	        		if(boxHint.isi != ''){
+	        			doRegister(boxHint.isi, boxNewPass.isi)
+	        			setError(true, "Register Success", "Your new password has been successfully changed.")
+	        		}else{
+	        			setError(true, "Register Failed", "Please, make sure your input password is match!")
+	        		}
+	        	}else{
+	        		setError(true, "Register Failed", "Please, make sure your input password is match!")
+	        	}
+			}else{
+				//setOverlay("")
+	       		setError(true, "Register Failed", "Please, make sure your input password is match!");
+	       	}
+        } 
     }
 
     SText {

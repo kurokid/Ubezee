@@ -1,5 +1,4 @@
 from PyQt4.QtGui import QStandardItemModel, QStandardItem
-from PyQt4.QtCore import QString
 from user import MyUser
 
 class UserItemModel(QStandardItemModel):
@@ -26,8 +25,8 @@ class UserItemModel(QStandardItemModel):
 
 	def addUserItem(self, username, userPicture, address, realname):
 		self.item = QStandardItem()
-		self.item.setData(QString(username), self.username)
-		self.item.setData(QString(userPicture), self.userPicture)
-		self.item.setData(QString(address), self.address)
-		self.item.setData(QString(realname), self.realname)
+		self.item.setData(username, self.username)
+		self.item.setData(userPicture, self.userPicture)
+		self.item.setData(address, self.address)
+		self.item.setData(realname, self.realname)
 		self.appendRow(self.item)

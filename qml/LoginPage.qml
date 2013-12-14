@@ -1,35 +1,8 @@
-/* Ubezee
- * Copyright (C) 2013 Ikhwan Setiawan
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- */
-
 import QtQuick 1.0
 
 Rectangle {
     id: loginPage
     color: "#ffffff"
-
-    MouseArea {
-        anchors.fill: parent
-    }
-
-    function loginPass(statusLogin) {
-        if (statusLogin == "ok") showMainWidget();
-        if (statusLogin == "error") loginOverlay.state = "info" ;
-    }
 
     SmoothText {
         id: boxTitle
@@ -68,70 +41,56 @@ Rectangle {
                 source: "images/TileGradient.png"
             }
 
-	    Image {
-		id: rect
-		source: "images/ubezee.png"
-		transform: Rotation { origin.x: 30; origin.y: 30; axis { x: 0; y: 1; z: 0 } angle: 18 }
-		smooth: true
-	    }
-	    
-	    RotationAnimation {
-		id: rotationAnimation
-		running: true
-		from: 0
-		to: -360
-		duration: 4000
-		loops: Animation.Infinite
-		target: rect
-		property: "rotation"
-
-	    }
-        }
+		    Image {
+				id: rect
+				source: "images/ubezee.png"
+				transform: Rotation { origin.x: 30; origin.y: 30; axis { x: 0; y: 1; z: 0 } angle: 18 }
+				smooth: true
+		    }
+		    
+		    RotationAnimation {
+				id: rotationAnimation
+				running: true
+				from: 0
+				to: -360
+				duration: 6000
+				loops: Animation.Infinite
+				target: rect
+				property: "rotation"
+		    }
+		}
 
         SText {
-	    anchors.left: imageRec.right
-	    anchors.right: parent.right
-	    anchors.bottom: txtPass.top
-	    anchors.leftMargin: 10
-	    anchors.rightMargin: 20
-	    anchors.bottomMargin: 20
-	    font.pixelSize: 16
-	    wrapMode: TextEdit.Wrap
-	    text: "<b>Please input password to show the configuration menu!</b>"
-	    color: "#888888"
-	}
+		    anchors.left: imageRec.right
+		    anchors.right: parent.right
+		    anchors.bottom: txtPass.top
+		    anchors.leftMargin: 10
+		    anchors.rightMargin: 20
+		    anchors.bottomMargin: 20
+		    font.pixelSize: 16
+		    wrapMode: TextEdit.Wrap
+		    text: "<b>Please input password to show the configuration menu!</b>"
+		    color: "#888888"
+		}
 	
-	Rectangle {
-	    id: txtPass
-	    anchors.left: imageRec.right
-	    anchors.right: parent.right
-	    anchors.bottom: imageRec.bottom
-	    anchors.leftMargin: 10
-	    anchors.rightMargin: 20
-            border.color: "#888888"
-            border.width: 2
-            height: 25
-            TextInput {
-                id: passwordText
-                anchors.fill: parent
-                anchors.margins: 4
-                readOnly: false
-                smooth: true
-                font.pixelSize: 14
-                color: "#888888"
-                echoMode: TextInput.Password
-                selectByMouse: true
-		focus: true
-                onAccepted: {
-                    check_pass(passwordText.text);
-                    passwordText.text = ""
-                    passwordText.focus = true
-                }
-            }
-        }
+		TextBox {
+			id: txtPass
+		    anchors.left: imageRec.right
+		    anchors.right: parent.right
+		    anchors.bottom: imageRec.bottom
+		    anchors.leftMargin: 10
+		    anchors.rightMargin: 20
+		    placeHolder: 'Enter your password...'
+        	charTampil: false
+		}
     }
 
-
+	HelpBox {
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.topMargin: 100
+    }
+    
     ButtonDark {
         id: buttonOk
         anchors.right: parent.right
@@ -141,9 +100,7 @@ Rectangle {
         buttonEnabled: true
         label: "Accept"
         onClicked: {
-            check_pass(passwordText.text);
-            passwordText.text = ""
-            passwordText.focus = true
+            check_pass(txtPass.isi);
         }
     }
     
@@ -156,11 +113,5 @@ Rectangle {
         buttonEnabled: true
         label: "Exit"
         onClicked: Qt.quit();
-    }
-
-    UbezeeOverlay {
-        id: loginOverlay
-        anchors.fill: parent
-        state: hasError==true? "info" : ""
     }
 }
