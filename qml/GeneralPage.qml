@@ -43,5 +43,11 @@ Item {
         anchors.rightMargin: 40
         anchors.top: keterangan.bottom
         anchors.topMargin: 40
+        
+        MouseArea {
+        	anchors.fill: parent
+        	onClicked: changeLock()
+    }
+        	
     }
 }

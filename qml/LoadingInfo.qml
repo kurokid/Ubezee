@@ -43,51 +43,42 @@ Rectangle {
             source: "images/PanelGradient.png"
         }
 
-        Image {
-            id: backIcon
-            source: "images/BackIcon.png"
-            anchors.top: parent.top
-            anchors.left: parent.left
-            anchors.topMargin: 5
-            anchors.leftMargin: 5
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                	infoPage.back();
-                }
-            }
-        }
-
         SmoothText {
             id: msgTitle
-            anchors.left: backIcon.right
+            anchors.left: parent.left
             anchors.top: parent.top
-            anchors.leftMargin: 15
+            anchors.leftMargin: 25
             anchors.topMargin: 5
             font.pixelSize: 64
-            //text: "Wrong Password!"
-            text: judulPesan
+            text: "Harap Tunggu"
         }
 
         Flickable {
             id: flick
-            anchors.top: backIcon.bottom
+            anchors.top: msgTitle.bottom
             anchors.left: msgTitle.left
             anchors.right: parent.right
             anchors.bottom: parent.bottom
-            anchors.topMargin: 20
+            anchors.topMargin: -20
             anchors.bottomMargin: 10
             contentWidth: message.paintedWidth
             contentHeight: message.paintedHeight
             clip: true
 
+			AnimatedImage { 
+				id: animation
+				anchors.right: parent.right
+				anchors.rightMargin: 130
+				source: "images/Preloader.gif"
+			}
+		     
             SText {
                 id: message
+                anchors.top: animation.bottom
+                anchors.topMargin: 20
                 width: flick.width - 10
                 height: flick.height
-                //text: "Please provide your Ubezee password. If you forget your password, you can try change it by boot to safe mode."
-                text: isiPesan
+                text: "Proses buka/tutup kunci sedang berlangsung, tolong tunggu sebentar."
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 15
             }

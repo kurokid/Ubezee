@@ -37,7 +37,19 @@ Rectangle {
         opacity: 0
         onBack: {
         	setError(false, '', '')
-        	//setOverlay(overlay)
+        }
+    }
+    
+    LoadingInfo {
+        id: loadingInfo
+        anchors.top: parent.top
+        anchors.topMargin: 10
+        anchors.bottom: parent.bottom
+        width: parent.width
+        x: -50
+        opacity: 0
+        onBack: {
+        	setError(false, '', '')
         }
     }
 
@@ -134,6 +146,19 @@ Rectangle {
             name: "info"
             PropertyChanges {
                 target: infoPage
+                opacity: 1
+                x: 0
+            }
+            PropertyChanges {
+                target: disabler
+                opacity: 1
+                visible: true
+            }
+        },
+        State {
+            name: "loading"
+            PropertyChanges {
+                target: loadingInfo
                 opacity: 1
                 x: 0
             }

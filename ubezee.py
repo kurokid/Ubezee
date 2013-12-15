@@ -1,15 +1,15 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
 
 import sys, os, pwd
 from user import MyUser
+from locker import Locker
 
-from PyQt4.QtCore import QObject, QUrl, pyqtSignal, pyqtProperty, pyqtSlot, QFile
+from PyQt4.QtCore import QObject, QUrl, pyqtSignal, pyqtProperty, pyqtSlot, QProcess
 from PyQt4.QtGui import QApplication, QDesktopWidget, QIcon, QPixmap
 from PyQt4.QtDeclarative import QDeclarativeView, QDeclarativeItem
 from userlistitemmodel import UserItemModel
 from auth import Auth
-
-VAR_PATH = QFile("var/ubezee/locked")
 
 def main():
 	os.chdir(sys.path[0])
@@ -49,7 +49,10 @@ class MyElement (QObject):
 		super(MyElement, self).__init__()
 		self.setObjectName('mainObject')
 		self._users = []
+		self.mainProc = QProcess()
+		self.mainProc.finished.connect(self.finishProc)
 		self.auth = Auth()
+		self.locker = Locker()
 		self._isiPesan = ""
 		self._judulPesan = "Error"
 		self._overlay = "loginpage"
@@ -64,15 +67,24 @@ class MyElement (QObject):
 	
 	@pyqtProperty(bool, notify=hasLockChanged)
 	def isLock(self):
-		if (VAR_PATH.exists()):
-			return True
-		else:
-			return False
+		return self.locker.getLock()
 	
-	def setLock(self, lock):
-		if self._hasLock != lock:
-			self._hasLock = lock
+	@pyqtSlot()
+	def ayoPing(self):
+		self.mainProc.start("ping -c 1 google.com")
+		
+	def finishProc(self):
+		self.setError(True, "Penguncian Berhasil", "Proses penguncian telah berhasil, silakan hidupkan ulang komputer anda untuk mengimplementasikan penguncian.")
+		self._overlay = ""
+	
+	@pyqtSlot()
+	def changeLock(self):
+		if self.locker.changeLock():
+			self.setOverlay("loading")
+			self.mainProc.start("ping -c 2 google.com")
 			self.hasLockChanged.emit()
+		else:
+			self.setError(True, "Penguncian Gagal", "Terjadi kesalahan saat akan melakukan penguncian, silakan coba lagi.")
 	
 	@pyqtProperty(bool, notify=hasLoginChanged)
 	def hasLogin(self):

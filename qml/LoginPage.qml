@@ -11,7 +11,7 @@ Rectangle {
         anchors.leftMargin: 15
         anchors.topMargin: 5
         font.pixelSize: 64
-        text: "otorisasi"
+        text: "Otorisasi"
         color: "#4cb328"
     }
 
