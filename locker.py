@@ -3,10 +3,8 @@
 
 import os
 
-#HOOK_PATH = "/etc/initramfs­tools/hooks/ro_root"
-#INIT_PATH = "/etc/initramfs­tools/scripts/init­bottom/ro_root"
-HOOK_PATH = "var/hook"
-INIT_PATH = "var/init"
+HOOK_PATH = "/etc/initramfs­tools/hooks/ro_root"
+INIT_PATH = "/etc/initramfs­tools/scripts/init­bottom/ro_root"
 HOOK_SCRIPT = """#!/bin/sh
 
 PREREQ=''

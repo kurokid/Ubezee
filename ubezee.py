@@ -68,10 +68,6 @@ class MyElement (QObject):
 	@pyqtProperty(bool, notify=hasLockChanged)
 	def isLock(self):
 		return self.locker.getLock()
-	
-	@pyqtSlot()
-	def ayoPing(self):
-		self.mainProc.start("ping -c 1 google.com")
 		
 	def finishProc(self):
 		self.setError(True, "Penguncian Berhasil", "Proses penguncian telah berhasil, silakan hidupkan ulang komputer anda untuk mengimplementasikan penguncian.")
@@ -81,7 +77,7 @@ class MyElement (QObject):
 	def changeLock(self):
 		if self.locker.changeLock():
 			self.setOverlay("loading")
-			self.mainProc.start("ping -c 2 google.com")
+			self.mainProc.start("update-initramfs -u")
 			self.hasLockChanged.emit()
 		else:
 			self.setError(True, "Penguncian Gagal", "Terjadi kesalahan saat akan melakukan penguncian, silakan coba lagi.")
