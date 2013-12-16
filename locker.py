@@ -3,8 +3,8 @@
 
 import os
 
-HOOK_PATH = "/etc/initramfs­tools/hooks/ro_root"
-INIT_PATH = "/etc/initramfs­tools/scripts/init­bottom/ro_root"
+HOOK_PATH = "/etc/initramfs-tools/hooks/ro_root"
+INIT_PATH = "/etc/initramfs-tools/scripts/init-bottom/ro_root"
 HOOK_SCRIPT = """#!/bin/sh
 
 PREREQ=''
@@ -79,22 +79,22 @@ class Locker(object):
             try:
                 f = open(HOOK_PATH, "w")
                 f.write(HOOK_SCRIPT)
-                f.close()
             except IOError:
                 status = False
                 return
+            f.close()
             
             try:
                 f = open(INIT_PATH, "w")
                 f.write(INIT_SCRIPT)
-                f.close()
+                
             except IOError:
                 status = False
                 return
-            
+            f.close()
             if status:
-                os.chmod("var/hook", 0o755)
-                os.chmod("var/init", 0o755)
+                os.chmod(HOOK_PATH, 0o755)
+                os.chmod(INIT_PATH, 0o755)
         else:
             try:
                 os.remove(HOOK_PATH)
