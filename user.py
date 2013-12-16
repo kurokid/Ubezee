@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
 from gi.repository import GLib, Gio
 
 class MyUser():

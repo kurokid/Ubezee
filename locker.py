@@ -5,6 +5,7 @@ import os
 
 HOOK_PATH = "/etc/initramfs-tools/hooks/ro_root"
 INIT_PATH = "/etc/initramfs-tools/scripts/init-bottom/ro_root"
+ROOT_PATH = "/root.ro/"
 HOOK_SCRIPT = """#!/bin/sh
 
 PREREQ=''
@@ -61,7 +62,11 @@ class Locker(object):
 
     def __init__(self):
         self.locked = False
+        self.proses = True
         
+    def getStatus(self):
+        return os.path.exists(ROOT_PATH)
+            
     def getLock(self):
         if os.path.isfile(HOOK_PATH):
             if os.path.isfile(INIT_PATH):
@@ -73,9 +78,17 @@ class Locker(object):
         
         return self.locked
     
+    def isLocking(self):
+        return self.proses
+    
+    def setLocking(self, proses):
+        if self.proses != proses:
+            self.proses = proses
+    
     def changeLock(self):
         status = True
         if not self.getLock():
+            self.setLocking(True)
             try:
                 f = open(HOOK_PATH, "w")
                 f.write(HOOK_SCRIPT)
@@ -96,6 +109,10 @@ class Locker(object):
                 os.chmod(HOOK_PATH, 0o755)
                 os.chmod(INIT_PATH, 0o755)
         else:
+            self.setLocking(False)
+            if self.getStatus():
+                os.remove("/root.ro" + HOOK_PATH)
+                os.remove("/root.ro" + INIT_PATH)
             try:
                 os.remove(HOOK_PATH)
                 os.remove(INIT_PATH)

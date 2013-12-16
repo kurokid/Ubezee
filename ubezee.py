@@ -11,6 +11,9 @@ from PyQt4.QtDeclarative import QDeclarativeView, QDeclarativeItem
 from userlistitemmodel import UserItemModel
 from auth import Auth
 
+VAR_PATH = "/var/ubezee"
+CONFIG_PATH = "/etc/ubezee"
+
 def main():
 	os.chdir(sys.path[0])
 	app = QApplication(sys.argv)
@@ -55,7 +58,8 @@ class MyElement (QObject):
 		self.locker = Locker()
 		self._isiPesan = ""
 		self._judulPesan = "Error"
-		self._overlay = "loginpage"
+		self._overlay = ""
+		self.options = ["-c","cp /boot/initrd.img* /var/ubezee/ && update-initramfs -u -k all"]
 		#self._passOk = self.auth.check()
 		self._isLock = False
 		self._hasRegister = False
@@ -70,15 +74,30 @@ class MyElement (QObject):
 		return self.locker.getLock()
 		
 	def finishProc(self):
+		#self.mainProc.close()
 		self.setError(True, "Penguncian Berhasil", "Proses penguncian telah berhasil, silakan hidupkan ulang komputer anda untuk mengimplementasikan penguncian.")
 		self._overlay = ""
 	
 	@pyqtSlot()
 	def changeLock(self):
 		if self.locker.changeLock():
-			self.setOverlay("loading")
-			self.mainProc.start("update-initramfs -u")
-			self.hasLockChanged.emit()
+			if self.locker.isLocking():
+				self.setInfo("Harap Tunggu", "Proses penguncian sistem sedang berlangsung, tolong tunggu sebentar.")
+				self.setOverlay("loading")
+				self.mainProc.start("/bin/sh", self.options)
+				#self.mainProc.start("update-initramfs -u -k all")
+				self.hasLockChanged.emit()
+			else:
+				if self.locker.getStatus():
+					self.setInfo("Harap Tunggu", "Proses membuka sistem sedang berlangsung, tolong tunggu sebentar.")
+					self.setOverlay("loading")
+					self.mainProc.start("mount -o remount,rw /root.ro && cp %s* /root.ro/boot/" % VAR_PATH)
+					self.hasLockChanged.emit()
+				else:
+					self.setInfo("Harap Tunggu", "Proses penguncian sistem sedang berlangsung, tolong tunggu sebentar.")
+					self.setOverlay("loading")
+					self.mainProc.start("update-initramfs -u -k all")
+					self.hasLockChanged.emit()
 		else:
 			self.setError(True, "Penguncian Gagal", "Terjadi kesalahan saat akan melakukan penguncian, silakan coba lagi.")
 	
@@ -89,6 +108,14 @@ class MyElement (QObject):
 	@pyqtProperty(str, notify=varChanged)
 	def isiPesan(self):
 		return self._isiPesan
+	
+	@pyqtSlot(str, str)
+	def setInfo(self, judul,isi):
+		if self._isiPesan != isi:
+			self._isiPesan = isi
+		if self._judulPesan != judul:
+			self._judulPesan = judul
+		self.varChanged.emit()
 	
 	@pyqtProperty(str, notify=varChanged)
 	def judulPesan(self):
@@ -131,24 +158,26 @@ class MyElement (QObject):
 	
 	@pyqtSlot(str)
 	def setOverlay(self, overlay):
-		if self._overlay != overlay:
-			self._overlay = overlay			
-			self.overlayChanged.emit()
-			print("changed")
+		self._overlay = overlay			
+		self.overlayChanged.emit()
+		print(self._overlay)
 	
 	@pyqtSlot(bool, str, str)
 	def setError(self, error, judul, isi):
 		if self._hasError != error:
-			self._judulPesan = judul
-			self._isiPesan = isi
+			#self._judulPesan = judul
+			#self._isiPesan = isi
+			self.setInfo(judul, isi)
 			self._hasError = error
-			self.varChanged.emit()
+			#self.varChanged.emit()
 			self.hasErrorChanged.emit()
 		
 	@pyqtProperty(QDeclarativeItem, constant=True)
 	def userListData(self):
 		return self._userListData
-		
+	
+	#def getRoot
+			
 	@pyqtSlot(str)
 	def check_pass(self, password):
 		if self.auth.checkAuth(str(password)):
@@ -182,13 +211,11 @@ class MyElement (QObject):
 		#	if os.path.isfile(dir_entry_path):
 		#		with open(dir_entry_path, 'r') as my_file:
 		#			data[dir_entry] = my_file.read()
-				
-    #def activeLock(self):
-    #    try:
-    #       fileConfig1 = open("/home/kurokid/Desktop/ubezee_root", "w+")
-    #    except Exception, e:
-    #        print(e)
-              
 
 if __name__ == "__main__":
+	os.chdir(sys.path[0])
+	if not os.path.exists(CONFIG_PATH):
+		os.makedirs(CONFIG_PATH)
+	if not os.path.exists(VAR_PATH):
+		os.makedirs(VAR_PATH)
 	main()

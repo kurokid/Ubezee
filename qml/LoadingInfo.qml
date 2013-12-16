@@ -50,7 +50,8 @@ Rectangle {
             anchors.leftMargin: 25
             anchors.topMargin: 5
             font.pixelSize: 64
-            text: "Harap Tunggu"
+            //text: "Harap Tunggu"
+            text: judulPesan
         }
 
         Flickable {
@@ -78,7 +79,8 @@ Rectangle {
                 anchors.topMargin: 20
                 width: flick.width - 10
                 height: flick.height
-                text: "Proses buka/tutup kunci sedang berlangsung, tolong tunggu sebentar."
+                //text: "Proses buka/tutup kunci sedang berlangsung, tolong tunggu sebentar."
+                text: isiPesan
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 15
             }
