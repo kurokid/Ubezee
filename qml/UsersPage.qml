@@ -1,31 +1,6 @@
-/* DUKTO - A simple, fast and multi-platform file transfer tool for LAN users
- * Copyright (C) 2011 Emanuele Colombo
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- */
-
 import QtQuick 1.0
 
 Item {
-
-    MouseArea {
-        id: buddyMouseArea
-        anchors.fill: parent
-        hoverEnabled: true
-        onClicked: console.log(userListData)
-    }
 
     Timer {
         interval: 6000; running: true; repeat: true
@@ -33,17 +8,48 @@ Item {
     }
 
     function flipImage  () {
-	console.log(userListData.count)
-        for(var idx = 0; idx < userListData.count; ++idx) {
+        for(var idx = 0; idx < buddiesList.count; ++idx) {
             if ( Math.ceil(Math.random() * (userListData.count+1)) == (idx+1)) {
-                    userListData.setProperty(idx,"showback",false)
-                    userListData.setProperty(idx,"showback",true)
+            		console.log(buddiesList.count)
+                    buddiesList.setProperty(idx,"showback",false)
+                    buddiesList.setProperty(idx,"showback",true)
+                    buddiesList.setProperty(0,"username","asdas")
             }
         }
     }
+    
+    MouseArea {
+       anchors.fill: parent
+       onClicked: console.log(buddiesList.currentIndex)
+   }
 
     clip: true
 
+    SmoothText {
+        id: badSmile
+        anchors.left: parent.left
+        anchors.leftMargin: 40
+        anchors.top: parent.top
+        font.pixelSize: 160
+        text: ":-("
+        color: "#555555"
+        visible: isLock
+    }
+    
+    SText  {
+        y: badSmile.y + badSmile.height / 2 + 20
+        // anchors.topMargin: 10
+        anchors.left: parent.left
+        anchors.leftMargin: 40
+        anchors.right: parent.right
+        anchors.rightMargin: 40
+        font.pixelSize: 17
+        color: "#555555"
+        text: "Maaf, penguncian berdasarkan pengguna hanya berfungsi jika penguncian sistem tidak dihidupkan..."
+        wrapMode: TextEdit.Wrap
+        visible: isLock
+    }
+    
     ListView {
         id: buddiesList
         anchors.fill: parent
@@ -51,17 +57,16 @@ Item {
         anchors.leftMargin: 25
         anchors.rightMargin: 0
         model: userListData
+        visible: !isLock
 
         Component {
              id: contactDelegate
              BuddyListElement {
-                 buddyIp: username
-                 buddyAvatar: userPicture
-                 //buddyGeneric: generic
-                 buddyUsername: realname
-                 buddySystem: address
-                 buddyOsLogo: userPicture
-                 buddyShowBack: true
+                 userName: nama
+                 userPicture: userpicture
+                 realName: realname
+                 userAddress: address
+                 lockThis: lockThis
              }
          }
 

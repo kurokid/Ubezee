@@ -3,22 +3,32 @@ import QtQuick 1.0
 Flipable {
    id: contactDelegateItem
    width: parent.width
-   height: buddyIp == "" ? 94 : 64
+   height: 64
 
-   property string buddyIp
-   property alias buddyGeneric: buddyGenericImage.source
-   property alias buddyAvatar: buddyAvatarImage.source
-   property alias buddyOsLogo: buddyOsLogoImage.source
-   property alias buddyUsername: buddyUsernameText.text
-   property alias buddySystem: buddySystemText.text
-   property bool buddyShowBack: false
-   property bool lockThis: false
+   property string userName
+   property alias userPicture: buddyAvatarImage.source
+   property string realName
+   property alias userAddress: buddySystemText.text
+   property bool buddyShowBack: true
+   property bool lockThis
+
+   Timer {
+        interval: 6000; running: true; repeat: true
+        onTriggered: flipImage()
+    }
+
+   function flipImage  () {
+   			console.log(buddyShowBack)
+			buddyShowBack = false
+			console.log(buddyShowBack)
+			buddyShowBack= true
+   }
 
    MouseArea {
        id: buddyMouseArea
        anchors.fill: parent
        hoverEnabled: true
-       //onClicked:
+       onClicked: lockUser(index, userName, locked)
    }
 
    Rectangle {
@@ -70,6 +80,7 @@ Flipable {
                }
                Image {
                    id: buddyOsLogoImage
+                   source: "images/LinuxLogo.png"
                    anchors.fill: parent
                }
            }
@@ -109,6 +120,7 @@ Flipable {
            anchors.right: parent.right
            anchors.rightMargin: 20
            font.pixelSize: 16
+           text:realName + "(" + userName + ")"
            elide: "ElideRight"
            color: "#555555"
        }
@@ -127,7 +139,7 @@ Flipable {
        
        Switch {
            id: userSwitch
-           switchOn: false 
+           switchOn: locked
            anchors.top: flipableAvatar.top
            anchors.topMargin: 8
            anchors.rightMargin: 10
@@ -149,14 +161,5 @@ Flipable {
        NumberAnimation { target: rotation; property: "angle"; from: 0; to: -90; duration: 300; easing.type: Easing.InCubic }
        PropertyAction { target: contactDelegateItem; property: "ListView.delayRemove"; value: false }
 
-   }
-
-   Rectangle {
-       color: "#248b00"
-       x: 40
-       width: parent.width - 80
-       height: 1
-       y: parent.height - 10
-       visible: buddyIp == ""
    }
 }

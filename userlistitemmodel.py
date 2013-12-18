@@ -3,30 +3,33 @@ from user import MyUser
 
 class UserItemModel(QStandardItemModel):
 
-	username, userPicture, address, realname = range(4)
+	foo, nama, userPicture, address, realname, locked = range(6)
 
 	def __init__(self):
 		QStandardItemModel.__init__(self)
 		role_names = {
-			self.username: "username",
-			self.userPicture: "userPicture",
+			self.foo: "",
+			self.nama: "nama",
+			self.userPicture: "userpicture",
 			self.address: "address",
-			self.realname: "realname"
+			self.realname: "realname",
+			self.locked: "locked"
 		}
 		self.setRoleNames(role_names)
 
 	def addRootElement(self):
 		root = MyUser('root')
-		
 		self.addUserItem(root.name, 
 				root.picture,
 				root.address,
-				root.realname)
+				root.realname,
+				root.locked)
 
-	def addUserItem(self, username, userPicture, address, realname):
+	def addUserItem(self, username, userPicture, address, realname, locked, foo = ""):
 		self.item = QStandardItem()
-		self.item.setData(username, self.username)
+		self.item.setData(username, self.nama)
 		self.item.setData(userPicture, self.userPicture)
 		self.item.setData(address, self.address)
 		self.item.setData(realname, self.realname)
+		self.item.setData(locked, self.locked)
 		self.appendRow(self.item)

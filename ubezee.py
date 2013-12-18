@@ -3,11 +3,10 @@
 
 import sys, os, pwd
 from user import MyUser
-from locker import Locker
 
-from PyQt4.QtCore import QObject, QUrl, pyqtSignal, pyqtProperty, pyqtSlot, QProcess
-from PyQt4.QtGui import QApplication, QDesktopWidget, QIcon, QPixmap
-from PyQt4.QtDeclarative import QDeclarativeView, QDeclarativeItem
+from PyQt4.QtCore import QObject, QUrl, pyqtSignal, pyqtProperty, pyqtSlot, QProcess, QModelIndex, Qt
+from PyQt4.QtGui import QApplication, QDesktopWidget, QIcon, QPixmap, QStandardItemModel
+from PyQt4.QtDeclarative import QDeclarativeView
 from userlistitemmodel import UserItemModel
 from auth import Auth
 
@@ -52,15 +51,17 @@ class MyElement (QObject):
 		super(MyElement, self).__init__()
 		self.setObjectName('mainObject')
 		self._users = []
+		self._index = 0
 		self.mainProc = QProcess()
+		self.secondProc = QProcess()
 		self.mainProc.finished.connect(self.finishProc)
+		self.mainProc.started.connect(self.startProc)
+		self.secondProc.finished.connect(self.secondFinishProc)
+		self.secondProc.started.connect(self.startProc)
 		self.auth = Auth()
-		self.locker = Locker()
 		self._isiPesan = ""
 		self._judulPesan = "Error"
 		self._overlay = ""
-		self.options = ["-c","cp /boot/initrd.img* /var/ubezee/ && update-initramfs -u -k all"]
-		#self._passOk = self.auth.check()
 		self._isLock = False
 		self._hasRegister = False
 		self._hasLogin = False
@@ -71,35 +72,51 @@ class MyElement (QObject):
 	
 	@pyqtProperty(bool, notify=hasLockChanged)
 	def isLock(self):
-		return self.locker.getLock()
+		return os.path.isfile("/var/ubezee/LOCKED")
 		
-	def finishProc(self):
-		#self.mainProc.close()
-		self.setError(True, "Penguncian Berhasil", "Proses penguncian telah berhasil, silakan hidupkan ulang komputer anda untuk mengimplementasikan penguncian.")
-		self._overlay = ""
-	
-	@pyqtSlot()
-	def changeLock(self):
-		if self.locker.changeLock():
-			if self.locker.isLocking():
-				self.setInfo("Harap Tunggu", "Proses penguncian sistem sedang berlangsung, tolong tunggu sebentar.")
-				self.setOverlay("loading")
-				self.mainProc.start("/bin/sh", self.options)
-				#self.mainProc.start("update-initramfs -u -k all")
-				self.hasLockChanged.emit()
-			else:
-				if self.locker.getStatus():
-					self.setInfo("Harap Tunggu", "Proses membuka sistem sedang berlangsung, tolong tunggu sebentar.")
-					self.setOverlay("loading")
-					self.mainProc.start("mount -o remount,rw /root.ro && cp %s* /root.ro/boot/" % VAR_PATH)
-					self.hasLockChanged.emit()
-				else:
-					self.setInfo("Harap Tunggu", "Proses penguncian sistem sedang berlangsung, tolong tunggu sebentar.")
-					self.setOverlay("loading")
-					self.mainProc.start("update-initramfs -u -k all")
-					self.hasLockChanged.emit()
+	def finishProc(self, exitCode):
+		if not exitCode:
+			self.setError(True, "Proses Berhasil", "Proses buka/tutup kunci telah berhasil, silakan hidupkan ulang komputer anda untuk mengimplementasikan penguncian.")
+			self._overlay = ""
+			self.hasLockChanged.emit()
 		else:
-			self.setError(True, "Penguncian Gagal", "Terjadi kesalahan saat akan melakukan penguncian, silakan coba lagi.")
+			self.setError(True, "Proses Gagal", "Terjadi kesalahan saat akan melakukan proses buka/tutup kunci, silakan coba lagi.")
+
+	def secondFinishProc(self, exitCode):
+		if not exitCode:
+			self.setError(True, "Proses Berhasil", "Proses buka/tutup kunci pada pengguna telah berhasil, silakan hidupkan ulang komputer anda untuk mengimplementasikan penguncian.")
+			self._overlay = ""
+			h = self._userListData.index(self._index, 0)
+			if self._userListData.itemFromIndex(h).data(5):
+				self._userListData.itemFromIndex(h).setData(False, 5)
+			else:
+				self._userListData.itemFromIndex(h).setData(True, 5)
+		else:
+			self.setError(True, "Proses Gagal", "Terjadi kesalahan saat akan melakukan proses buka/tutup kunci, silakan coba lagi.")
+
+		
+	def startProc(self):
+		self.setInfo("Harap Tunggu", "Proses buka/tutup pengunci sistem sedang berlangsung, mohon tunggu sebentar...")
+		self.setOverlay("loading")
+		
+	@pyqtSlot(bool)
+	def changeLock(self, todo):
+		if todo:
+			self.mainProc.start("bash locker.sh -l sistem")
+		else:
+			self.mainProc.start("bash locker.sh -u sistem")
+			
+	@pyqtSlot(int, str, bool)
+	def lockUser(self, index, nama, locked):
+		self._index = index
+		if not locked:
+			self.secondProc.start("bash locker.sh -l %s" % nama)
+		else:
+			self.secondProc.start("bash locker.sh -u %s" % nama)
+			#h.setData("asdasdad", 1)
+			#self.userListData.appendRow(h)
+			#for item in self._userListData.findItems("kurokid"):
+			#	self._userListData.removeRow(item.row())
 	
 	@pyqtProperty(bool, notify=hasLoginChanged)
 	def hasLogin(self):
@@ -165,18 +182,13 @@ class MyElement (QObject):
 	@pyqtSlot(bool, str, str)
 	def setError(self, error, judul, isi):
 		if self._hasError != error:
-			#self._judulPesan = judul
-			#self._isiPesan = isi
 			self.setInfo(judul, isi)
 			self._hasError = error
-			#self.varChanged.emit()
 			self.hasErrorChanged.emit()
 		
-	@pyqtProperty(QDeclarativeItem, constant=True)
+	@pyqtProperty(QStandardItemModel, constant=True)
 	def userListData(self):
-		return self._userListData
-	
-	#def getRoot
+		return self._userListData	
 			
 	@pyqtSlot(str)
 	def check_pass(self, password):
@@ -191,11 +203,11 @@ class MyElement (QObject):
 		for i in self._users:
 			#self._userListData.addUserItem(i[0], i[5]+"/.face.icon", i[5], "realname")
 			user = MyUser(i[0])
-		
 			self._userListData.addUserItem(user.name, 
 					user.picture,
 					user.address,
-					user.realname)
+					user.realname,
+					user.locked)
 		
 	def getUsers(self):
 		for users in pwd.getpwall():

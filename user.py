@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from gi.repository import GLib, Gio
+import os
+
+LOCK_PATH = "/var/ubezee/home/"
 
 class MyUser():
 
@@ -38,3 +41,8 @@ class MyUser():
 				self.picture = props['IconFile']
 		except IOError:
 			self.picture = "images/UserIcon.png"
+			
+		if (LOCK_PATH + self.name) in open('/etc/fstab').read():
+			self.locked =  True
+		else:
+			self.locked =  False

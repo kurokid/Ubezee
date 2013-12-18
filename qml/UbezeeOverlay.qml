@@ -16,17 +16,6 @@ Rectangle {
         }
     }
 
-    IpPage {
-        id: ipPage
-        anchors.top: parent.top
-        anchors.topMargin: 10
-        anchors.bottom: parent.bottom
-        width: parent.width
-        x: -50
-        opacity: 0
-        onBack: parent.state = ""
-    }
-
     InfoPage {
         id: infoPage
         anchors.top: parent.top
@@ -53,18 +42,17 @@ Rectangle {
         }
     }
 
-    ProgressPage {
-        id: progressPage
-        anchors.top: parent.top
-        anchors.topMargin: 10
-        anchors.bottom: parent.bottom
-        width: parent.width
-        x: -50
-        opacity: 0
-    }
-
     SettingsPage {
         id: settingsPage
+        width: parent.width
+        height: parent.height
+        x: -50
+        opacity: 0
+        onBack: setOverlay("")
+    }
+    
+    SyncPage {
+        id: syncPage
         width: parent.width
         height: parent.height
         x: -50
@@ -88,60 +76,7 @@ Rectangle {
         opacity: 0
     }
 
-    /*ShowTextPage {
-        id: showTextPage
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        width: parent.width
-        x: -50
-        opacity: 0
-        onBack: parent.state = ""
-        onBackOnSend: {
-            sendPage.setDestinationFocus();
-            parent.state = "send"
-        }
-    }
-
-    SendPage {
-        id: sendPage
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        width: parent.width
-        height: parent.height
-        x: -50
-        opacity: 0
-        onBack: parent.state = ""
-        onShowTextPage: {
-            showTextPage.setTextEditFocus();
-            parent.state = "showtext";
-        }
-    }
-
-    MessagePage {
-        id: messagePage
-        anchors.top: parent.top
-        anchors.topMargin: 10
-        anchors.bottom: parent.bottom
-        width: parent.width
-        x: -50
-        opacity: 0
-        onBack: parent.state = backState
-    }*/
-
     states: [
-        State {
-            name: "ip"
-            PropertyChanges {
-                target: ipPage
-                opacity: 1
-                x: 0
-            }
-            PropertyChanges {
-                target: disabler
-                opacity: 1
-                visible: true
-            }
-        },
         State {
             name: "info"
             PropertyChanges {
@@ -169,27 +104,6 @@ Rectangle {
             }
         },
         State {
-            name: "progress"
-            PropertyChanges {
-                target: progressPage
-                opacity: 1
-                x: 0
-            }
-            PropertyChanges {
-                target: disabler
-                opacity: 1
-                visible: true
-            }
-        },
-        State {
-            name: "showtext"
-            PropertyChanges {
-                target: showTextPage
-                opacity: 1
-                x: 0
-            }
-        },
-        State {
             name: "settings"
             PropertyChanges {
                 target: settingsPage
@@ -198,24 +112,11 @@ Rectangle {
             }
         },
         State {
-            name: "send"
+            name: "sync"
             PropertyChanges {
-                target: sendPage
+                target: syncPage
                 opacity: 1
                 x: 0
-            }
-        },
-        State {
-            name: "message"
-            PropertyChanges {
-                target: messagePage
-                opacity: 1
-                x: 0
-            }
-            PropertyChanges {
-                target: disabler
-                opacity: 1
-                visible: true
             }
         },
         State {

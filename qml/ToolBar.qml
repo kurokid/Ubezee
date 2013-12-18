@@ -41,7 +41,7 @@ Item {
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: setError(true, '', '')
+                onClicked: setOverlay("sync")
             }
         }
         SText {

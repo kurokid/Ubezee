@@ -46,7 +46,7 @@ Item {
         
         MouseArea {
         	anchors.fill: parent
-        	onClicked: changeLock()
+        	onClicked: changeLock(!isLock)
     }
         	
     }

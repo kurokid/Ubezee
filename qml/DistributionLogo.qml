@@ -5,7 +5,6 @@ Rectangle {
     width: 128
     height: 128
     state: "show"
-    //state: mouseArea.containsMouse ? "hide" : "show"
     clip: true
 
     Timer {
@@ -39,7 +38,7 @@ Rectangle {
             id: mainLogo
             anchors.fill: parent
             smooth: true
-            source: "images/LockLogo.png"
+            source: isLock ? "images/LockLogo.png" : "images/UnlockLogo.png" 
         }
     }
 
