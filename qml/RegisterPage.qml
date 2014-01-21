@@ -13,8 +13,8 @@ Rectangle {
         anchors.leftMargin: 15
         anchors.topMargin: 5
         font.pixelSize: 64
-        text: "Disclaimer"
-        color: "#4cb328"
+        text: "Ketentuan"
+        color: myColor2
     }
 
     SText {
@@ -26,14 +26,14 @@ Rectangle {
         anchors.rightMargin: 20
         anchors.topMargin: 45
         font.pixelSize: 16
-        text: "Please read and fill form above."
+        text: "Silakan baca lalu isi form pada bagian bawah."
         color: "#888888"
     }
 
 
     Rectangle {
         id: rectangleText
-        border.color: "#4cb328"
+        border.color: myColor2
         border.width: 1
         anchors.top: boxSender.bottom
         anchors.topMargin: 10
@@ -89,7 +89,7 @@ Rectangle {
         anchors.right: parent.right
         anchors.rightMargin: 10
 		font.pixelSize: 12
-		text: "<b>Your Password Hint</b>"
+		text: "<b>Petunjuk untuk kata kunci anda</b>"
 		color: "#888888"
 	}
 		    
@@ -101,7 +101,7 @@ Rectangle {
         anchors.bottomMargin: 10
         anchors.right: parent.right
         anchors.rightMargin: 10
-        placeHolder: 'Enter your password hint...'
+        placeHolder: 'Masukkan petunjuk kata kunci...'
 	}
 
 	SText {
@@ -113,7 +113,7 @@ Rectangle {
         anchors.right: parent.right
         anchors.rightMargin: 10
 		font.pixelSize: 12
-		text: "<b>Create a Password</b>"
+		text: "<b>Membuat Kata Kunci</b>"
 		color: "#888888"
 	}
 	
@@ -125,7 +125,7 @@ Rectangle {
         anchors.bottomMargin: 10
         anchors.right: parent.right
         anchors.rightMargin: 10
-        placeHolder: 'Enter your password...'
+        placeHolder: 'Masukkan kata kunci anda...'
         charTampil: false
 	}
 	
@@ -138,7 +138,7 @@ Rectangle {
         anchors.right: parent.right
         anchors.rightMargin: 10
 		font.pixelSize: 12
-		text: "<b>Confirm your password</b>"
+		text: "<b>Memastikan Kata Kunci Anda</b>"
 		color: "#888888"
 	}
 	
@@ -150,7 +150,7 @@ Rectangle {
         anchors.bottomMargin: 20
         anchors.right: parent.right
         anchors.rightMargin: 10
-        placeHolder: 'Retype your password...'
+        placeHolder: 'Masukkan ulang kata kunci anda...'
         charTampil: false
 	}
 
@@ -168,13 +168,13 @@ Rectangle {
 	        		if(boxHint.isi != ''){
 	        			doRegister(boxHint.isi, boxPass.isi)
 	        		}else{
-	        			setError(true, "Register Failed", "Please, make sure your input password is match!")
+	        			setError(true, "Proses Gagal", "Tolong pastikan anda mengisi petunjuk untuk kata kunci!")
 	        		}
 	        	}else{
-	        		setError(true, "Register Failed", "Please, make sure your input password is match!")
+	        		setError(true, "Proses Gagal", "Tolong pastikan kedua kata kunci yang anda masukkan cocok!")
 	        	}
 			}else{
-	       		setError(true, "Register Failed", "Please, make sure your input password is match!")
+	       		setError(true, "Proses Gagal", "Tolong pastikan anda mengisi semua isian yang ada!")
 	       	}
         }
     }

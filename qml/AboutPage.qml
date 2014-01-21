@@ -7,7 +7,7 @@ Item {
         y: 15
         width: 64
         height: 64
-        color: "#248b00"
+        color: myColor1
         Image {
             source: "images/TileGradient.png"
             anchors.fill: parent

@@ -13,7 +13,7 @@ FocusScope {
     
     Rectangle {
 		id: box
-        border.color: textInput.activeFocus ? "#4cb328" : "#888888" 
+        border.color: textInput.activeFocus ? myColor2 : "#888888" 
 		border.width: 2
 		width: parent.width
         height: parent.height

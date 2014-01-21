@@ -40,7 +40,7 @@ Flipable {
            anchors.top: parent.top
            height: 64
            width: 5
-           color: "#4cb328"
+           color: myColor2
        }
    }
 
@@ -55,7 +55,7 @@ Flipable {
 
            front: Rectangle {
                anchors.fill: parent
-               color: "#248b00"
+               color: myColor1
                Image {
                    anchors.fill: parent
                    source: "images/TileGradient.png"
@@ -73,7 +73,7 @@ Flipable {
 
            back: Rectangle {
                anchors.fill: parent
-               color: "#248b00"
+               color: myColor1
                Image {
                    anchors.fill: parent
                    source: "images/TileGradient.png"

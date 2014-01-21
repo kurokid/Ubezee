@@ -15,7 +15,7 @@ Rectangle {
         id: switchColor
         anchors.margins: 4
         anchors.fill: parent
-        color: switchControl.state == "on" ? "#248b00" : "#cccccc"
+        color: switchControl.state == "on" ? myColor1 : "#cccccc"
     }
 
     MouseArea {

@@ -26,7 +26,7 @@ Rectangle {
 
     function refreshColor() {
 
-        picker.setColor("#248b00");
+        picker.setColor(myColor1);
     }
 
     MouseArea {
@@ -55,7 +55,7 @@ Rectangle {
         anchors.topMargin: 5
         font.pixelSize: 64
         text: "Settings"
-        color: "#4cb328"
+        color: myColor2
     }
 
     SText {
@@ -78,7 +78,7 @@ Rectangle {
         anchors.rightMargin: 17
         anchors.topMargin: 8
         height: 30
-        color: "#248b00"
+        color: myColor1
         clip: true
 
         Image {
@@ -135,7 +135,7 @@ Rectangle {
         anchors.topMargin: 8
         anchors.left: picker.right
         anchors.leftMargin: 20
-        color: "#248B00"
+        color: myColor1
         onClicked: picker.setColor(color)
     }
 

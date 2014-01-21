@@ -27,7 +27,7 @@ Rectangle {
 
    Rectangle {
         id: firstSlide
-        color: "#248b00"
+        color: myColor1
         width: parent.width
         height: parent.height
 
@@ -49,7 +49,7 @@ Rectangle {
     	id: secondSlide
         width: parent.width
         height: parent.height
-        color: "#248b00"
+        color: myColor1
 
         Image {
             id: secondImage

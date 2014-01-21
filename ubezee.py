@@ -4,11 +4,12 @@
 import sys, os, pwd
 from user import MyUser
 
-from PyQt4.QtCore import QObject, QUrl, pyqtSignal, pyqtProperty, pyqtSlot, QProcess, QModelIndex, Qt
+from PyQt4.QtCore import QObject, QUrl, pyqtSignal, pyqtProperty, pyqtSlot, QProcess
 from PyQt4.QtGui import QApplication, QDesktopWidget, QIcon, QPixmap, QStandardItemModel
 from PyQt4.QtDeclarative import QDeclarativeView
 from userlistitemmodel import UserItemModel
 from auth import Auth
+from theme import Theme
 
 VAR_PATH = "/var/ubezee"
 CONFIG_PATH = "/etc/ubezee"
@@ -45,6 +46,7 @@ class MyElement (QObject):
 	hasErrorChanged = pyqtSignal()
 	hasRegisterChanged = pyqtSignal()
 	varChanged = pyqtSignal()
+	themeChanged = pyqtSignal()
 	overlayChanged = pyqtSignal()
 	
 	def __init__(self, parent=None):
@@ -52,6 +54,8 @@ class MyElement (QObject):
 		self.setObjectName('mainObject')
 		self._users = []
 		self._index = 0
+		self._myTheme = Theme()
+		self._myColor = self._myTheme.getTheme() 
 		self.mainProc = QProcess()
 		self.secondProc = QProcess()
 		self.mainProc.finished.connect(self.finishProc)
@@ -76,7 +80,7 @@ class MyElement (QObject):
 		
 	def finishProc(self, exitCode):
 		if not exitCode:
-			self.setError(True, "Proses Berhasil", "Proses buka/tutup kunci telah berhasil, silakan hidupkan ulang komputer anda untuk mengimplementasikan penguncian.")
+			self.setError(True, "Proses Berhasil", "Proses buka/tutup kunci telah berhasil, silakan hidupkan ulang komputer anda untuk mengimplementasikan perubahan.")
 			self._overlay = ""
 			self.hasLockChanged.emit()
 		else:
@@ -84,7 +88,7 @@ class MyElement (QObject):
 
 	def secondFinishProc(self, exitCode):
 		if not exitCode:
-			self.setError(True, "Proses Berhasil", "Proses buka/tutup kunci pada pengguna telah berhasil, silakan hidupkan ulang komputer anda untuk mengimplementasikan penguncian.")
+			self.setError(True, "Proses Berhasil", "Proses buka/tutup kunci pada pengguna telah berhasil, silakan hidupkan ulang komputer anda untuk mengimplementasikan perubahan.")
 			self._overlay = ""
 			h = self._userListData.index(self._index, 0)
 			if self._userListData.itemFromIndex(h).data(5):
@@ -113,14 +117,23 @@ class MyElement (QObject):
 			self.secondProc.start("bash locker.sh -l %s" % nama)
 		else:
 			self.secondProc.start("bash locker.sh -u %s" % nama)
-			#h.setData("asdasdad", 1)
-			#self.userListData.appendRow(h)
-			#for item in self._userListData.findItems("kurokid"):
-			#	self._userListData.removeRow(item.row())
 	
 	@pyqtProperty(bool, notify=hasLoginChanged)
 	def hasLogin(self):
 		return self._hasLogin
+	
+	@pyqtProperty(str, notify=themeChanged)
+	def myColor1(self):
+		return self._myColor[0]
+	
+	@pyqtProperty(str, notify=themeChanged)
+	def myColor2(self):
+		return self._myColor[1]
+	
+	@pyqtSlot(str)
+	def setTheme(self, theme):
+		self._myTheme.setTheme(theme)
+		self.themeChanged.emit()
 	
 	@pyqtProperty(str, notify=varChanged)
 	def isiPesan(self):
@@ -145,7 +158,6 @@ class MyElement (QObject):
 	@pyqtProperty(bool, notify=hasRegisterChanged)
 	def hasRegister(self):
 		return self.auth.check()
-		#return True
 	
 	def setRegister(self, register):
 		if self._hasRegister != register:
@@ -155,9 +167,9 @@ class MyElement (QObject):
 	@pyqtSlot(str, str)
 	def doRegister(self, hint, userPass):
 		if self.auth.set_password(userPass, hint):
-			self.setError(True, "Register Failed", "We seem to not be able to save your data, check if your keyring is run properly.")
+			self.setError(True, "Proses Gagal", "Terjadi kesalahan pada proses pembuatan kata kunci baru.")
 		else:
-			self.setError(True, "Password Change Succsefull", "Your password has been change and store safely.")
+			self.setError(True, "Perubahan Berhasil", "Kata kunci anda berhasil dirubah dan disimpan.")
 			self.setRegister(True)
 	
 	def setLogin(self, login):
@@ -196,33 +208,22 @@ class MyElement (QObject):
 			self.setLogin(True)
 			self.setOverlay("")
 		else:
-			self.setError(True, "gagal masuk", "kata kunci yang anda masukkan salah, silakan coba lagi.")
+			self.setError(True, "Gagal Masuk", "kata kunci yang anda masukkan salah, silakan coba lagi.")
 			
 	def addNewUser(self):
 		self.getUsers()
 		for i in self._users:
-			#self._userListData.addUserItem(i[0], i[5]+"/.face.icon", i[5], "realname")
-			user = MyUser(i[0])
-			self._userListData.addUserItem(user.name, 
-					user.picture,
-					user.address,
-					user.realname,
-					user.locked)
+			user = MyUser(i[0],i[4],i[5])
+			self._userListData.addUserItem(user.getName(), 
+					user.getAvatar(),
+					user.getHome(),
+					user.getRealName(),
+					user.getLock())
 		
 	def getUsers(self):
 		for users in pwd.getpwall():
 			if users[2] >= 1000:
 				self._users.append(users)
-			
-		del self._users[0]
-		
-		#path = r'/var/'  # remove the trailing '\'
-		#data = {}
-		#for dir_entry in os.listdir(path):
-		#	dir_entry_path = os.path.join(path, dir_entry)
-		#	if os.path.isfile(dir_entry_path):
-		#		with open(dir_entry_path, 'r') as my_file:
-		#			data[dir_entry] = my_file.read()
 
 if __name__ == "__main__":
 	os.chdir(sys.path[0])

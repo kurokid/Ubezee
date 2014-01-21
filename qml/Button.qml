@@ -15,7 +15,7 @@ Rectangle {
     SText {
         id: textLabel
         anchors.fill: parent
-        color: buttonEnabled ? (buttonArea.containsMouse ? "#248b00" : "#ffffff") : "#cccccc"
+        color: buttonEnabled ? (buttonArea.containsMouse ? myColor1 : "#ffffff") : "#cccccc"
         horizontalAlignment: "AlignHCenter"
         verticalAlignment: "AlignVCenter"
         font.pixelSize: 12

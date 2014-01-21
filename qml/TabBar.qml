@@ -18,7 +18,7 @@ Item {
             font.pixelSize: 84
             text: "ubezee"
             transformOrigin: Item.TopLeft
-            color: generalTextMouseArea.containsMouse ? "#4cb328" : "#cccccc"
+            color: generalTextMouseArea.containsMouse ? myColor2 : "#cccccc"
             scale: 0.5
 
             MouseArea {
@@ -38,7 +38,7 @@ Item {
             font.pixelSize: 84
             text: "pengguna"
             transformOrigin: Item.TopLeft
-            color: userTextMouseArea.containsMouse ? "#4cb328" : "#cccccc"
+            color: userTextMouseArea.containsMouse ? myColor2 : "#cccccc"
             scale: 0.5
 
             MouseArea {
@@ -56,7 +56,7 @@ Item {
             id: aboutText
             x: 360
             font.pixelSize: 84
-            color: aboutTextMouseArea.containsMouse ? "#4cb328" : "#cccccc"
+            color: aboutTextMouseArea.containsMouse ? myColor2 : "#cccccc"
             text: "tentang"
             MouseArea {
                 id: aboutTextMouseArea
@@ -75,7 +75,7 @@ Item {
 
             PropertyChanges {
                 target: generalText
-                color: "#248b00" // "#000000"
+                color: myColor1 // "#000000"
             }
         },
         State {
@@ -89,7 +89,7 @@ Item {
             PropertyChanges {
                 target: userText
                 x: 97
-                color: "#248b00" // "#000000"
+                color: myColor1 // "#000000"
             }
 
             PropertyChanges {
@@ -113,7 +113,7 @@ Item {
             PropertyChanges {
                 target: aboutText
                 x: 220
-                color: "#248b00" // "#000000"
+                color: myColor1 // "#000000"
             }
         }
     ]

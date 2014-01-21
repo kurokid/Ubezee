@@ -23,7 +23,7 @@ Item {
         anchors.left: parent.left
         anchors.right: parent.right
         height: 68
-        color: "#248b00"
+        color: myColor1
 
         Image {
             anchors.top: parent.top

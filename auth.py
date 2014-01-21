@@ -32,8 +32,6 @@ class Auth():
 		self.token = TOKEN_FILE.read()
 		TOKEN_FILE.close()
 		return self.token
-	#def getStatus(self):
-	#	return self.error
 		
 	def setItem(self, alamat, isi):
 		try:

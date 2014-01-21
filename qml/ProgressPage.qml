@@ -16,7 +16,7 @@ Rectangle {
 
         Rectangle {
             id: backRecangle
-            color: "#248b00"
+            color: myColor1
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.bottom: parent.bottom
@@ -75,7 +75,7 @@ Rectangle {
             anchors.leftMargin: 17
             anchors.rightMargin: 17
             anchors.topMargin: 25
-            color: "#4cb328"
+            color: myColor2
             height: 40
 
             Rectangle {

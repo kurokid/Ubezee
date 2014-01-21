@@ -9,7 +9,7 @@ Item {
 
     Rectangle {
         id: backRecangle
-        color: "#248b00"
+        color: myColor1
         height: parent.height
         width: parent.width
         

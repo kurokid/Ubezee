@@ -27,7 +27,7 @@ Rectangle {
         id: baseImage
         width: parent.width
         height: parent.height
-        color: "#248b00"
+        color: myColor1
 
         Image {
             anchors.fill: parent
@@ -46,7 +46,7 @@ Rectangle {
         id: distroImage
         width: parent.width
         height: parent.height
-        color: "#248b00"
+        color: myColor1
 
         Image {
             id: distroLogo

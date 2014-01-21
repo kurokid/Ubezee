@@ -146,6 +146,7 @@ Rectangle {
         anchors.topMargin: 8
         anchors.left: labelColor.left
         color: "#248B00"
+        onClicked: setTheme(color)
     }
 
     ColorBox {
@@ -154,6 +155,7 @@ Rectangle {
         anchors.left: cbox1.right
         anchors.leftMargin: 15
         color: "#A80000"
+        onClicked: setTheme(color)
     }
 
     ColorBox {
@@ -162,6 +164,7 @@ Rectangle {
         anchors.left: cbox2.right
         anchors.leftMargin: 15
         color: "#3A6CBC"
+        onClicked: setTheme(color)
     }
 
     ColorBox {
@@ -170,6 +173,7 @@ Rectangle {
         anchors.left: cbox3.right
         anchors.leftMargin: 15
         color: "#2e3436" // "#704214"
+        onClicked: setTheme(color)
     }
 
     ColorBox {
@@ -178,6 +182,7 @@ Rectangle {
         anchors.top: cbox1.top
         anchors.leftMargin: 15
         color: "#B77994"
+        onClicked: setTheme(color)
     }
 
     ColorBox {
@@ -186,6 +191,7 @@ Rectangle {
         anchors.left: cbox5.right
         anchors.leftMargin: 15
         color: "#5B2F42"
+        onClicked: setTheme(color)
     }
 
     ColorBox {
@@ -194,6 +200,7 @@ Rectangle {
         anchors.left: cbox6.right
         anchors.leftMargin: 15
         color: "#353B56"
+        onClicked: setTheme(color)
     }
 /*
     ColorBox {

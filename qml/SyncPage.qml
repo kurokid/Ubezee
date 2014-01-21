@@ -37,7 +37,7 @@ Rectangle {
         anchors.topMargin: 5
         font.pixelSize: 64
         text: "Mode Lanjutan"
-        color: "#4cb328"
+        color: myColor2
     }
 
 	SText {

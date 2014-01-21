@@ -12,13 +12,13 @@ Rectangle {
         anchors.topMargin: 5
         font.pixelSize: 64
         text: "Otorisasi"
-        color: "#4cb328"
+        color: myColor2
     }
 
     Rectangle {
         anchors.top: boxTitle.bottom
         anchors.topMargin: -25
-        color: "#248b00"
+        color: myColor1
         width: parent.width
         height: 2
     }
@@ -35,7 +35,7 @@ Rectangle {
             height: 128
             anchors.left: parent.left
             anchors.leftMargin: 20
-            color: "#248b00"
+            color: myColor1
             Image {
                 anchors.fill: parent
                 source: "images/TileGradient.png"

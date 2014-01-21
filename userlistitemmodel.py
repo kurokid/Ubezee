@@ -18,12 +18,12 @@ class UserItemModel(QStandardItemModel):
 		self.setRoleNames(role_names)
 
 	def addRootElement(self):
-		root = MyUser('root')
-		self.addUserItem(root.name, 
-				root.picture,
-				root.address,
-				root.realname,
-				root.locked)
+		root = MyUser('root', 'root', '/root')
+		self.addUserItem(root.getName(), 
+				root.getAvatar(),
+				root.getHome(),
+				root.getRealName(),
+				root.getLock())
 
 	def addUserItem(self, username, userPicture, address, realname, locked, foo = ""):
 		self.item = QStandardItem()
